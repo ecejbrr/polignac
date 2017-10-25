@@ -2,6 +2,8 @@
 # Author: Juan Bautista Ruiz
 # Date: 2017-10
 # Quick script to show Polignac Odd numbers > 1 till integer given as argument
+# Since the conjecture was proven false, the numbers which prove
+# that conjecture false are named "Polignac" numbers by some. I take this as well. 
 
 import sys
 
@@ -52,6 +54,11 @@ t=tuple()
 
 # Loop over all natural numbers untill integer given as argument
 for i in range(2,int(max)):
+
+    # initially assuming current number is a polignac
+    pol="no"
+
+
     if i % 100 == 0:
         t=hundred*100, counter
         # not smart, but valid since there are no polignac numbers in 0th hundred
@@ -66,23 +73,21 @@ for i in range(2,int(max)):
     # get powers of 2 less than current integer
     if i % 2 == 0:
         powers=p2(i)
+        # discard even numbers
+        continue
 
     #print(powers)
-    # assuming current number is NOT polignac
-    pol="no"
-    # Loop all primes less than target 
+    # Loop all prime numbers less than target 
     for r in primes:
         # Loop all powers of 2 less than target
         for w in powers:
             if (w + r) == i:
-                # polignac number found
+                # polignac conjecture confirmed for this integer. 
+                # so, this is NOT a polignac number 
                 pol="yes"
 
-    if i % 2 == 0:
-        # discard even polignac numbers
-        pol="yes"
-
     if pol == "no":
+        # print Polignac numbers
         print("POLIGNAC: " + str(i))
         counter = counter + 1
         glob_counter += 1
@@ -109,7 +114,8 @@ print("TOTAL POLIGNAC numbers found: " + str(glob_counter))
 print("HUNDREDs with 0 POLIGNAC numbers: " + str(hundreds_zero))
 print("HUNDRED*100 with MAX POLIGNAC numbers: " + str(hundred_max_pol))
 
-# Remove following lines if no graph is required
+# Remove following lines if no graph is required or comment out following line
+#exit(0)
 
 import matplotlib.pyplot as plt
 
