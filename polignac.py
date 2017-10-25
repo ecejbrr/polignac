@@ -16,8 +16,8 @@ def usage():
 def primestill(fro, till):
     # get prime numbers from "fro" to "till" integers
     # returns a list
-    primes=list()
-    for num in range(fro+1, till):
+    primes = list()
+    for num in range(fro+1, till+1):
         for i in range(2, num):
             if num % i == 0:
                 break
@@ -28,7 +28,7 @@ def primestill(fro, till):
 
 def p2(till):
     # returns a list of the powers of 2 less or equal than "till" integer
-    powersOfTwo=list()
+    powersOfTwo = list()
     for i in range(0, till):
         if 2**i <= till:
             powersOfTwo.append(2**i)
@@ -40,23 +40,23 @@ if len(sys.argv) != 2:
     usage()
 
 # Take argument. convert it to integer. 
-max=int(sys.argv[1])
+max = int(sys.argv[1])
 
-primes=[1]
+primes = [1]
 
-hundred=0
+hundred = 0
 
-p_numbers=list()
-counter=0
-glob_counter=0
-t=tuple()
+p_numbers = list()
+counter = 0
+glob_counter = 0
+t = tuple()
 
 
 # Loop over all natural numbers untill integer given as argument
-for i in range(2,int(max)):
+for i in range(2, max+1):
 
     # initially assuming current number is a polignac
-    pol="no"
+    pol = "no"
 
 
     if i % 100 == 0:
