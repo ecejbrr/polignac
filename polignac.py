@@ -73,7 +73,7 @@ for i in range(2,int(max)):
     # get powers of 2 less than current integer
     if i % 2 == 0:
         powers=p2(i)
-        # discard even numbers
+        # discard even numbers. We are just interested in odd ones.
         continue
 
     #print(powers)
