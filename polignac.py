@@ -49,7 +49,6 @@ counter=0
 glob_counter=0
 t=tuple()
 
-hundreds_zero=list()
 
 # Loop over all natural numbers untill integer given as argument
 for i in range(2,int(max)):
@@ -57,8 +56,6 @@ for i in range(2,int(max)):
         t=hundred*100, counter
         # not smart, but valid since there are no polignac numbers in 0th hundred
         p_numbers.append(t)
-        if counter == 0:
-            hundreds_zero.append(t)
         hundred = hundred + 1
         counter = 0
 
@@ -93,10 +90,24 @@ for i in range(2,int(max)):
 t=hundred*100, counter
 p_numbers.append(t)
 
+hundreds_zero=list()
+hundred_max_pol=0,0
+
+for i,j in p_numbers:
+    # get hundreds with 0 polignac numbers
+    if j == 0:
+        t=i, j
+        hundreds_zero.append(t)
+
+    # get hundred with max polignac numbers
+    if j > hundred_max_pol[1]:
+        hundred_max_pol = i,j
+
 #print(p_numbers)
 
 print("TOTAL POLIGNAC numbers found: " + str(glob_counter))
 print("HUNDREDs with 0 POLIGNAC numbers: " + str(hundreds_zero))
+print("HUNDRED*100 with MAX POLIGNAC numbers: " + str(hundred_max_pol))
 
 # Remove following lines if no graph is required
 
