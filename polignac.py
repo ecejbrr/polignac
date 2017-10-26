@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python
 # Author: Juan Bautista Ruiz
 # Date: 2017-10
 # Quick script to show Polignac Odd numbers > 1 till integer given as argument
@@ -40,20 +40,20 @@ if len(sys.argv) != 2:
     usage()
 
 # Take argument. convert it to integer. 
-max = int(sys.argv[1])
+argum = int(sys.argv[1])
 
 primes = [1]
 
 hundred = 0
 
-p_numbers = list()
+p_numbers_in_hundred = list()
 counter = 0
 glob_counter = 0
 t = tuple()
-
+p_numbers = list()
 
 # Loop over all natural numbers untill integer given as argument
-for i in range(2, max+1):
+for i in range(2, argum+1):
 
     # initially assuming current number is a polignac
     pol = "no"
@@ -62,7 +62,7 @@ for i in range(2, max+1):
     if i % 100 == 0:
         t=hundred*100, counter
         # not smart, but valid since there are no polignac numbers in 0th hundred
-        p_numbers.append(t)
+        p_numbers_in_hundred.append(t)
         hundred = hundred + 1
         counter = 0
 
@@ -89,38 +89,33 @@ for i in range(2, max+1):
     if pol == "no":
         # print Polignac numbers
         print("POLIGNAC: " + str(i))
+        p_numbers.append(i)
         counter = counter + 1
         glob_counter += 1
 
 t=hundred*100, counter
-p_numbers.append(t)
+p_numbers_in_hundred.append(t)
 
-hundreds_zero=list()
-hundred_max_pol=0,0
 
-for i,j in p_numbers:
-    # get hundreds with 0 polignac numbers
-    if j == 0:
-        t=i, j
-        hundreds_zero.append(t)
-
-    # get hundred with max polignac numbers
-    if j > hundred_max_pol[1]:
-        hundred_max_pol = i,j
-
-#print(p_numbers)
-
-print("TOTAL POLIGNAC numbers found: " + str(glob_counter))
-print("HUNDREDs with 0 POLIGNAC numbers: " + str(hundreds_zero))
-print("HUNDRED*100 with MAX POLIGNAC numbers: " + str(hundred_max_pol))
+print("#############################################################################")
+print("# TOTAL POLIGNAC numbers found: " + str(glob_counter))
+print("##############################################")
+print("# LIST of POLIGNAC_NUMBERS: " + str(p_numbers))
+print("#############################################################################")
+print("# LIST of Hundreds*100 and Polignac numbers in it: " + str(p_numbers_in_hundred))
+print("##############################################")
+print("# LIST of HUNDREDs*100 with 0 POLIGNAC numbers: " + str(list(filter(lambda x: x[1] == 0, p_numbers_in_hundred))))
+print("##############################################")
+print("# HUNDRED*100 with MAX POLIGNAC numbers: " + str(max(p_numbers_in_hundred, key=lambda x: x[1])))
+print("#############################################################################")
 
 # Remove following lines if no graph is required or comment out following line
 #exit(0)
 
 import matplotlib.pyplot as plt
 
-x_val = [x[0] for x in p_numbers]
-y_val = [x[1] for x in p_numbers]
+x_val = [x[0] for x in p_numbers_in_hundred]
+y_val = [x[1] for x in p_numbers_in_hundred]
 
 _ = plt.bar(x_val, y_val, width=100,  align='edge')
 _ = plt.xlim(xmin=0)
